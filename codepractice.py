@@ -79,3 +79,36 @@ You can also use Django's authentication and authorization system to protect you
 
 Conclusion
 There are two main ways to run Streamlit code in Django: using Django Channels or using a WSGI server. The recommended method is to use Django Channels, as it is more scalable and allows you to communicate with your Streamlit applications using WebSockets.
+=================================================================================================================================
+
+import streamlit as st
+import snowpark
+import pandas as pd
+import streamlit_aggrid as ag
+
+# Create a Snowpark session object
+session = snowpark.Session()
+
+# Connect to the table
+table = session.table("my_table")
+
+# Select * from the table
+df = table.select("*")
+
+# Convert the Snowpark DataFrame to a Pandas DataFrame
+pdf = df.to_pandas()
+
+# Cache the Pandas DataFrame
+@st.cache()
+def get_pdf():
+  return pdf
+
+# Get the Pandas DataFrame from the cache
+pdf = get_pdf()
+
+# Create an AgGrid component
+grid = ag.AgGrid(pdf, enable_pagination=True)
+
+# Display the AgGrid component
+st.write(grid)
+
