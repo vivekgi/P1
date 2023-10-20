@@ -1,0 +1,25 @@
+import streamlit as st
+import pandas as pd
+
+# Create a Pandas DataFrame
+df = pd.DataFrame({'name': ['Alice', 'Bob', 'Carol'], 'age': [25, 30, 35]})
+
+# Create a list of columns to filter
+columns_to_filter = ['name', 'age']
+
+# Create a dictionary to store the filter values
+filter_values = {}
+
+# Create a sidebar for the filters
+with st.sidebar:
+    for column in columns_to_filter:
+        filter_values[column] = st.selectbox(f'Select {column}:', df[column].unique())
+
+# Filter the DataFrame
+filtered_df = df
+
+for column, value in filter_values.items():
+    filtered_df = filtered_df[filtered_df[column] == value]
+
+# Display the filtered DataFrame on the Streamlit UI
+st.write(filtered_df)
