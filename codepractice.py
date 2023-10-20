@@ -128,3 +128,10 @@ st.write("Slider value:", slider_value)
 # Display the AgGrid component
 st.write(grid)
 
+if st.button("Submit"):
+    # Convert the selected options to a JSON format
+    json_data = {"selected_options": selected_options, "slider_value": slider_value}
+
+    # Print the JSON data to the UI
+    st.write(json_data)
+
