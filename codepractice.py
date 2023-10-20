@@ -135,3 +135,18 @@ if st.button("Submit"):
     # Print the JSON data to the UI
     st.write(json_data)
 
+
+f st.button("Submit"):
+    # Convert the selected options to a JSON format
+    json_data = {"selected_options": selected_options, "slider_value": slider_value}
+
+    # Create a new page for the JSON output
+    st.session_state["json_output"] = json_data
+
+    # Redirect to the new page
+    st.experimental_set_query_params(page="json_output")
+
+# Display the JSON output on the new page
+if st.session_state.get("page") == "json_output":
+    json_output = st.session_state["json_output"]
+    st.write(json_output)
