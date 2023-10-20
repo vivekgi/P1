@@ -1,0 +1,10 @@
+import streamlit as st
+
+# Create a list of options for the selectbox widget
+options = ["dog", "cat", "elephant", "rat", "mat"]
+
+# Create a selectbox widget
+selected_option = st.selectbox("Select an option:", options)
+
+# Display the selected option on the Streamlit UI
+st.write(selected_option)
