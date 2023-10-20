@@ -108,6 +108,22 @@ pdf = get_pdf()
 
 # Create an AgGrid component
 grid = ag.AgGrid(pdf, enable_pagination=True)
+===================================================  streamlit UI 
+
+import streamlit as st
+
+# Create a list of options for the multiselection drop-down
+options = ["dog", "cat", "elephant", "rat", "mat"]
+
+# Create a multiselection drop-down widget
+selected_options = st.multiselect("Select options:", options)
+
+# Create a slider widget
+slider_value = st.slider("Select a value between 1 and 100:", 1, 100, value=50)
+
+# Display the selected options and slider value
+st.write("Selected options:", selected_options)
+st.write("Slider value:", slider_value)
 
 # Display the AgGrid component
 st.write(grid)
