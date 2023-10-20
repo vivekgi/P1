@@ -150,3 +150,28 @@ f st.button("Submit"):
 if st.session_state.get("page") == "json_output":
     json_output = st.session_state["json_output"]
     st.write(json_output)
+
+
+
+
+
+
+class SelectedOptions:
+    def __init__(self, options: List[str]):
+        self.options = options
+
+    def __repr__(self):
+        return f"SelectedOptions({self.options})"
+
+
+
+import streamlit as st
+
+# Create a list of options for the multiselection drop-down
+options = ["dog", "cat", "elephant", "rat", "mat"]
+
+# Create a multiselection drop-down widget and return a custom class
+selected_options = SelectedOptions(st.multiselect("Select options:", options))
+
+# Print the selected options to the UI
+st.write(selected_options)
