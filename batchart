@@ -1,0 +1,17 @@
+import streamlit as st
+import pandas as pd
+
+# Create a Pandas DataFrame
+df = pd.DataFrame({'name': ['Alice', 'Bob', 'Carol', 'Dave', 'Eve'], 'age': [25, 30, 35, 40, 45]})
+
+# Get the index of the tallest bar
+tallest_bar_index = df['age'].argmax()
+
+# Set the color of the tallest bar to dark green and the color of other bars to light blue
+colors = ['#008000' if i == tallest_bar_index else '#ADD8E6' for i in range(len(df))]
+
+# Set the width of the bars
+width = 0.5
+
+# Plot the bar chart
+st.bar_chart(df, x='name', y='age', color=colors, width=width)
