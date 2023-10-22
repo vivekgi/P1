@@ -1,0 +1,10 @@
+import pandas as pd
+
+# Create a Pandas DataFrame
+df = pd.DataFrame({'A': ['Yes', 'No', 'Yes', 'No', 'Yes'], 'B': ['No', 'Yes', 'No', 'Yes', 'No']})
+
+# Add a new column called 'status'
+df['status'] = ['active' if i == 'Yes' and j == 'No' else 'inactive' for i, j in zip(df['A'], df['B'])]
+
+# Print the DataFrame
+print(df)
