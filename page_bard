@@ -1,0 +1,42 @@
+import pandas as pd
+import streamlit as st
+
+# Create a Pandas DataFrame
+df = pd.DataFrame({'A': ['Yes', 'No', 'Yes', 'No', 'Yes'], 'B': [10, 20, 30, 40, 50]})
+
+# Set the page size
+page_size = 10
+
+# Calculate the number of pages
+num_pages = int(len(df) / page_size)
+
+# Get the current page number
+current_page = st.session_state.get('page_number', 1)
+
+# Get the DataFrame for the current page
+df_current_page = df.iloc[(current_page - 1) * page_size:current_page * page_size]
+
+# Display the DataFrame
+st.dataframe(df_current_page)
+
+# Display the page number
+st.write(f'Page {current_page} of {num_pages}')
+
+# Add hyperlinks to navigate to the next pages and previous pages
+if current_page > 1:
+    st.write(f'[Previous]({current_page - 1})')
+
+if current_page < num_pages:
+    st.write(f'[Next]({current_page + 1})')
+
+
+
+====================
+st.write(f'[Previous]({current_page - 1})', href=f'/{current_page - 1}', target='_blank')
+st.write(f'[Next]({current_page + 1})', href=f'/{current_page + 1}', target='_blank')
+==========================
+if current_page > 1:
+    st.button('Previous', on_click=lambda: st.session_state.update(page_number=current_page - 1), style={'background-color': 'blue', 'color': 'white'})
+
+if current_page < num_pages:
+    st.button('Next', on_click=lambda: st.session_state.update(page_number=current_page + 1), style={'background-color': 'blue', 'color': 'white'})
