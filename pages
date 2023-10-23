@@ -1,0 +1,23 @@
+import pandas as pd
+import streamlit as st
+
+# Create a Pandas DataFrame
+df = pd.DataFrame({'A': ['Yes', 'No', 'Yes', 'No', 'Yes'], 'B': [10, 20, 30, 40, 50]})
+
+# Set the page size
+page_size = 10
+
+# Create a list of page numbers
+page_numbers = [i for i in range(1, int(len(df) / page_size) + 1)]
+
+# Add a sidebar to select the page number
+st.sidebar.selectbox('Page Number', page_numbers)
+
+# Get the current page number
+current_page = st.sidebar.session_state.get('page_number', 1)
+
+# Get the DataFrame for the current page
+df_current_page = df.iloc[(current_page - 1) * page_size:current_page * page_size]
+
+# Display the DataFrame
+st.dataframe(df_current_page)
