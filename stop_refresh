@@ -1,0 +1,34 @@
+import streamlit as st
+from streamlit.hashing import _CodeHasher
+import hashlib
+
+# Use this session state class to store input values
+class SessionState:
+    def __init__(self, **kwargs):
+        self.widget_values = {}
+        self.current_hash = None
+
+# Create a session state
+session_state = SessionState()
+
+# Streamlit app starts here
+st.title("Streamlit Page Without Refresh")
+
+# Use the st.cache decorator to prevent the script from rerunning if the input values don't change
+@st.cache(allow_output_mutation=True, show_spinner=False)
+def cached_function(inputs):
+    # This function won't run if inputs haven't changed
+    return f"Input: {inputs}"
+
+# Create an input widget
+input_value = st.text_input("Enter something", session_state.widget_values.get("input_value", ""))
+
+# Store the input value in the session state
+session_state.widget_values["input_value"] = input_value
+
+# Check if the input has changed, if so, execute the function
+current_hash = hashlib.md5(str(input_value).encode('utf-8')).hexdigest()
+if current_hash != session_state.current_hash:
+    session_state.current_hash = current_hash
+    result = cached_function(input_value)
+    st.write(result)
