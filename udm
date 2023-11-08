@@ -1,0 +1,56 @@
+import streamlit as st
+import pandas as pd
+
+# Create a Streamlit page with full-width layout
+st.set_page_config(layout="wide")
+
+# Create two select fields side by side
+select1, select2 = st.columns(2)
+with select1:
+    selected_file_1 = st.selectbox("Select File 1", ["File 1", "File 2", "File 3"])
+
+with select2:
+    selected_file_2 = st.selectbox("Select File 2", ["File A", "File B", "File C"])
+
+# Add a checkbox to divide the page into two parts
+split_checkbox = st.checkbox("Divide Page")
+
+# Define the layout based on the checkbox state
+if split_checkbox:
+    left_col, right_col = st.columns([0.6, 0.4])
+else:
+    left_col = st
+
+# Create an input text field on the left side
+with left_col:
+    input_text = st.text_input("Input Text")
+
+# Create a pandas DataFrame (example)
+data = pd.DataFrame({'Keys': ['Key1', 'Key2', 'Key3'], 'Values': ['Value1', 'Value2', 'Value3']})
+
+# Display keys and values on the right side
+if split_checkbox:
+    with right_col:
+        st.write(data)
+
+        # Add a copy button for each value
+        for index, row in data.iterrows():
+            copy_button = st.button(f"Copy Value {index + 1}", key=index)
+            if copy_button:
+                input_text = row['Values']
+
+# Add Run and Save buttons
+run, save = st.columns(2)
+
+if run.button("Run"):
+    # Display the history of input text and selected files
+    st.write("Input Text History:")
+    st.write(input_text)
+    st.write("Selected Files:")
+    st.write(selected_file_1, selected_file_2)
+
+save.button("Save")
+
+# Run the Streamlit app
+if __name__ == "__main__":
+    st.write("Streamlit App")
